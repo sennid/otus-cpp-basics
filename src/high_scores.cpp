@@ -4,40 +4,37 @@
 
 #include "high_scores.h"
 
-
-int maihigh_scoresn() {
-
-	const std::string high_scores_filename = "high_scores.txt";
-
-	// Ask about name
+std::string getName()
+{
 	std::cout << "Hi! Enter your name, please:" << std::endl;
 	std::string user_name;
 	std::cin >> user_name;
+	return user_name;
+}
 
-	// Get the last high score
-	std::cout << "Enter your high score:" << std::endl;
-	int attempts_count = 0;
-	std::cin >> attempts_count;
-	if (std::cin.fail()) {
-		std::cout << "Bad value!" << std::endl;
+int setScore(const std::string user_name, const int attempts_count)
+{
+	// Write new high score to the records table
+	const std::string high_scores_filename = "high_scores.txt";
+
+	// We should open the output file in the append mode - we don't want
+	// to erase previous results.
+	std::ofstream out_file{high_scores_filename, std::ios_base::app};
+	if (!out_file.is_open()) {
+		std::cout << "Failed to open file for write: " << high_scores_filename << "!" << std::endl;
 		return -1;
 	}
 
-	// Write new high score to the records table
-	{
-		// We should open the output file in the append mode - we don't want
-		// to erase previous results.
-		std::ofstream out_file{high_scores_filename, std::ios_base::app};
-		if (!out_file.is_open()) {
-			std::cout << "Failed to open file for write: " << high_scores_filename << "!" << std::endl;
-			return -1;
-		}
+	// Append new results to the table:
+	out_file << user_name << ' ';
+	out_file << attempts_count;
+	out_file << std::endl;
+	return 0;
+}
 
-		// Append new results to the table:
-		out_file << user_name << ' ';
-		out_file << attempts_count;
-		out_file << std::endl;
-	} // end of score here just to mark end of the logic block of code
+int getHighScores() {
+
+	const std::string high_scores_filename = "high_scores.txt";
 
 	// Read the high score file and print all results
 	{

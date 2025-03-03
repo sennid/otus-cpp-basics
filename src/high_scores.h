@@ -1,3 +1,5 @@
 #pragma once
 
-int high_scores();
+std::string getName();
+int setScore(const std::string user_name, const int attempts_count);
+int getHighScores();

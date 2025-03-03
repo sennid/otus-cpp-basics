@@ -3,15 +3,16 @@
 #include "check_value.h"
 #include "random_value.h"
 
-int guess_the_number() {
+
+int guessNumber() {
 
     int guess_value = random_value(100);
-    return check_value(guess_value);
+    return checkValue(guess_value);
     
 }
 
 int main ()
 {
     std::cout << "-=Guess The Number Game=-" << std::endl;
-    guess_the_number();
+    guessNumber();
 }

@@ -1,16 +1,20 @@
 #include <iostream>
 
 #include "check_value.h"
+#include "high_scores.h"
 
 
-int check_value(const int target_value) {
+int checkValue(const int target_value) {
 
+	std::string user_name = getName();
 	int current_value = 0;
+	int attempts = 0;
 	
 	std::cout << "Enter your guess:" << std::endl;
 
 	do {
 		std::cin >> current_value;
+		attempts++;
 
 		if (current_value > target_value) {
 			std::cout << "less than " << current_value << std::endl;
@@ -20,10 +24,13 @@ int check_value(const int target_value) {
 		}
 		else {
 			std::cout << "you win!" << std::endl;
+			std::cout << "Attemps: " << attempts << std::endl;
+			setScore(user_name, attempts);
 			break;
 		}
 
 	} while(true);
 
+	getHighScores();
 	return 0;
 }
